@@ -175,13 +175,16 @@ jobs:
       - checkout
       - add_ssh_keys:
           fingerprints: ["4c:b0:66:51:40:d0:0e:b6:e4:c4:46:c8:b6:d6:33:cd"] 
-      - run: yum install -y tar gzip
-      - attach_workspace:
-          at: ~/
       - run:
           name: Install dependencies
           command: |
-            apk add --update ansible
+            yum install -y tar gzip
+            sudo apt update
+            sudo apt install software-properties-common -y
+            sudo add-apt-repository --yes --update ppa:ansible/ansible
+            sudo apt install ansible -y
+      - attach_workspace:
+          at: ~/
       - run:
           name: Configure server
           command: |
