@@ -22,19 +22,6 @@
         name: python3
         update_cache: yes
 
-    - name: "Install Node.js 13"
-      shell: |
-        # Install Node.js LTS version as our base Node.js version
-        curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-        sudo apt install -y nodejs
-        sudo npm install -g n
-        sudo n 13.8.0
-
-    - name: "install pm2"
-      npm:
-        name: pm2
-        global: yes
-
   # Get the environment variables from CircleCI and add to the EC2 instance
   environment:
     - TYPEORM_CONNECTION: "{{ lookup('env', 'TYPEORM_CONNECTION')}}"  
@@ -49,4 +36,4 @@
     # Add more env vars here
 
   roles:
-    - configure-server
+    #- configure-server
