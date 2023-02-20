@@ -170,7 +170,7 @@ jobs:
 
   configure-infrastructure:
     docker:
-      - image: cimg/base:stable
+      - image: circleci/python:3.8
     steps:
       - checkout
       - add_ssh_keys:
@@ -182,15 +182,7 @@ jobs:
             unzip awscliv2.zip
             sudo ./aws/install
 
-            curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
-            sudo apt install -y nodejs
-            sudo npm install --global n
-            sudo n 13.8.0
-
-            sudo apt update
-            sudo apt install software-properties-common -y
-            sudo add-apt-repository --yes --update ppa:ansible/ansible
-            sudo apt install ansible -y
+            pip install ansible
       - attach_workspace:
           at: ~/
       - run:
