@@ -271,13 +271,13 @@ jobs:
     docker:
       - image: circleci/node:13.8.0
     steps:
-     - checkout
+      - checkout
       - install_awscli
       - install_ansible
       - restore_cache:
           keys: ['backend-build']
       - add_ssh_keys:
-          fingerprints: ["d5:a4:0d:bd:36:a7:d2:03:2c:10:93:6a:7c:d1:a7:26"]
+          fingerprints: ["4c:b0:66:51:40:d0:0e:b6:e4:c4:46:c8:b6:d6:33:cd"]
       - attach_workspace:
           at: ~/
       - run:
