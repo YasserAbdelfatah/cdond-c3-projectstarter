@@ -9,6 +9,7 @@ commands:
         default: ${CIRCLE_WORKFLOW_ID:0:7}     
     steps:
       - run:
+          name: Destroy environments
           when: on_fail
           command: |
             aws s3 rm s3://udapeople-<<parameters.Workflow_ID>> --recursive
@@ -31,24 +32,27 @@ commands:
             unzip awscliv2.zip
             sudo ./aws/install
 
-#   revert-migrations:
-#     description: Revert the last migration if successfully run in the current workflow.
-#     parameters:
-#       # Add parameter here     
-#     steps:
-#       - run:
-#           name: Revert migrations
-#           # Add when this will run
-#           command: |
-#             # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
-#             SUCCESS = 1
-#             if(( $SUCCESS==1 )); 
-#             then
-#             #  cd ~/project/backend
-#             #  npm install
-#             #  Add revert code here. You can find this in the Getting Started section.
-#               exit 1
-#             fi
+  revert-migrations:
+    description: Revert the last migration if successfully run in the current workflow.
+    parameters:
+      Workflow_ID:
+        type: string
+        default: ${CIRCLE_WORKFLOW_ID:0:7}     
+    steps:
+      - run:
+          name: Revert migrations
+          when: on_fail
+          command: |
+            # Curl command here to see if there was a successful migration associated with the workflow id, store result in SUCCESS variable
+            SUCCESS=$(curl --insecure  https://kvdb.io/${KVDB_BUCKET}/migration_<< parameters.workflow_id >>)
+            if(( $SUCCESS==1 )); 
+            then
+              cd ~/project/backend
+              pm install
+              npm install
+              npm run migration:revert
+              echo "revert mogration succeeded"
+            fi
             
 jobs:
   build-frontend:
@@ -349,6 +353,7 @@ jobs:
                 exit 1
             fi
       - destroy-environment
+      - revert-migrations
       # Here's where you will add some code to rollback on failure  
 
 #   cloudfront-update:
