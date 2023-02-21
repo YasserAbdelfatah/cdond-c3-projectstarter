@@ -1,0 +1,5 @@
+URL01: https://github.com/YasserAbdelfatah/cdond-c3-projectstarter
+URL02: http://udapeople-3474b5f.s3-website-us-east-1.amazonaws.com
+URL03: https://d2m0kln46u438p.cloudfront.net/
+URL04: http://44.199.203.25:3030/api/status  - ec2-44-199-203-25.compute-1.amazonaws.com:3030/api/status
+URL05: http://ec2-44-193-18-126.compute-1.amazonaws.com:9090/targets
