@@ -286,7 +286,7 @@ jobs:
             sudo apt install -y nodejs
             sudo npm install --global n
             sudo n 13.8.0
-            
+
             cd backend
             npm install
       - run:
@@ -295,7 +295,8 @@ jobs:
             cd backend
             npm run build
             tar -czf artifact.tar.gz dist/* package*
-            cp artifact.tar.gz .circleci/ansible/roles/deploy/files
+            cd ..
+            cp backend/artifact.tar.gz .circleci/ansible/roles/deploy/files
       - run:
           name: Deploy backend
           command: |
